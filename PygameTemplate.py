@@ -16,18 +16,25 @@ hero1_rect = pygame.Rect(101, 100, 363, 377)
 hero1 = LuffyImg.subsurface(hero1_rect)
 
 hero_pos = [0, 100]
-hero_pos_T = [200, 300]
+offset = {pygame.K_LEFT:0, pygame.K_RIGHT:0, pygame.K_UP:0, pygame.K_DOWN:0}
 while True:
     Screen.blit(background,(0,0))
 
-    if ticks % 50 > 25:
-        Screen.blit(hero1, hero_pos)
-
-    ticks += 1
-    hero_pos = [hero_pos[0]+1,hero_pos[1]+1]
+    Screen.blit(hero1, hero_pos)
     pygame.display.update()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
 
+        if event.type == pygame.KEYDOWN:
+            if event.key in offset:
+                offset[event.key] = 3
+        elif event.type == pygame.KEYUP:
+            if event.key in offset:
+                offset[event.key] = 0
+
+
+    offset_x = offset[pygame.K_RIGHT] - offset[pygame.K_LEFT]
+    offset_y = offset[pygame.K_DOWN] - offset[pygame.K_UP]
+    hero_pos = [hero_pos[0] + offset_x, hero_pos[1] + offset_y]
 
