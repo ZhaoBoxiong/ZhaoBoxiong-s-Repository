@@ -2,6 +2,8 @@ import pygame
 from pygame.locals import *
 from sys import exit
 
+
+
 Screen_Witch = 800
 Screnn_Height = 1000
 ticks = 0
